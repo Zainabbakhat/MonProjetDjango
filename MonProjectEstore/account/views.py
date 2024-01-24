@@ -20,7 +20,7 @@ def LoginPage(request):
         user=authenticate(request,username=username,password=pass1)
         if user is not None:
             login(request,user)
-            return redirect('home')
+            return redirect('./home')
         else:
             return HttpResponse("username or password is incorrect!")
     return render(request, 'login.html')
@@ -42,7 +42,7 @@ def SignupPage(request):
             return HttpResponse("the password is incorrect")
         my_user=User.objects.create_user(uname,email,pass1)
         my_user.save()
-        return redirect('/login')      
+        return redirect('./loginPage')      
     return render(request, 'signup.html')
     if not User.objects.filter(username='uname').exists():
             my_user=User.objects.create_user('uname','email','pass1')
