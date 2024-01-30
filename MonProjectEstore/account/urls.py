@@ -10,6 +10,7 @@ urlpatterns = [
     path('home',views.HomePage,name='home'),
     path('SignupPage',views.SignupPage,name='signup'),
     path('logout',views.LogoutPage,name='logout'),
+    path('fournisseur',views.FournisseurPage,name='fournisseur'),
    
 
 ]    

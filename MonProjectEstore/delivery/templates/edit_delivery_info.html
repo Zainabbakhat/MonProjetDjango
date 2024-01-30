@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Delivery Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    <h2>Modifier l'adresse de livraison</h2>
+    <form method="POST" action="{% url 'edit_delivery_info' delivery.id %}">
+        {% csrf_token %}
+        <!-- Ajouter les champs de formulaire ici, similaires à add_delivery_info.html -->
+        <div>
+            <label for="id_addresse">Adresse:</label>
+            <input type="text" name="addresse" id="id_addresse" value="{{ delivery.addresse }}" required>
+        </div>
+        
+        <div>
+            <label for="id_code_postal">Code Postal:</label>
+            <input type="text" name="code_postal" id="id_code_postal" value="{{ delivery.code_postal }}" required>
+        </div>
+        
+        <div>
+            <label for="id_ville">Ville:</label>
+            <input type="text" name="ville" id="id_ville" value="{{ delivery.ville }}" required>
+        </div>
+        
+        <div>
+            <label for="id_pays">Pays:</label>
+            <input type="text" name="pays" id="id_pays" value="{{ delivery.pays }}" required>
+        </div>
+        
+        <button type="submit">Mettre à jour</button>
+    </form>
+</body>
+</html>

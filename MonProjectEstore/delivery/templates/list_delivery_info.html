@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Delivery Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    <h2>Adresses de Livraison</h2>
+    <ul>
+    {% for delivery in delivery_infos %}
+        <li>
+            {{ delivery.addresse }}, {{ delivery.code_postal }}, {{ delivery.ville }}, {{ delivery.pays }}
+            - <a href="{% url 'edit_delivery_info' delivery.id %}">Modifier</a>
+            - <a href="{% url 'delete_delivery_info' delivery.id %}">Supprimer</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'add_delivery_info' %}">Ajouter une nouvelle adresse</a>
+</body>
+</html>

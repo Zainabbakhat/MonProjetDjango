@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>supplier Record</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+	
+<body>
+	<table>
+        <thead>
+            <tr>
+                <th>Nom de supplier</th>
+                <th>Categorie d'article</th>
+                <th>Nom d'article</th>
+                <th>quantite</th>
+        
+            </tr>
+        </thead>
+	<tbody>
+		{% for fournisseur in suppliers  %}
+		<tr>
+			<td>{{supplier.nom_supplier}}</td>
+			<td>{{supplier.categorie_article}}</td>
+			<td>{{supplier.nom_article}}DH</td>
+			<td>{{supplier.quantite }}</td>
+		</tr>
+        {% endfor %}
+	</tbody>
+</table>
+<br>
+<br>
+<button><a style="color:black;" href="/suppliers">Add New Record</a></button>
+</body>
+</html>
