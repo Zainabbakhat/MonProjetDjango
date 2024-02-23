@@ -6,11 +6,8 @@ def suppliers(request):
     if request.method=="POST":
         form= SupplierForm(request.POST)
         if form.is_valid():
-            try:
                 form.save()
-                return redirect("/supplier_show")
-            except:
-                pass
+                return redirect("supplier_show")
     else:
             form=SupplierForm()
     return render(request,'supplier_form.html',{'form': form}) 

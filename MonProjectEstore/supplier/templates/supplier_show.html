@@ -16,23 +16,25 @@
                 <th>Nom de supplier</th>
                 <th>Categorie d'article</th>
                 <th>Nom d'article</th>
-                <th>quantite</th>
+                <th>Quantite d'article</th>
+				<th>Prix unitaire</th>
         
             </tr>
         </thead>
 	<tbody>
 		{% for fournisseur in suppliers  %}
 		<tr>
-			<td>{{supplier.nom_supplier}}</td>
-			<td>{{supplier.categorie_article}}</td>
-			<td>{{supplier.nom_article}}DH</td>
-			<td>{{supplier.quantite }}</td>
+			<td>{{fournisseur.nom_supplier}}</td>
+			<td>{{fournisseur.categorie_article}}</td>
+			<td>{{fournisseur.article}}</td>
+			<td>{{fournisseur.quantite_article }}</td>
+			<td>{{fournisseur.prix_unitaire }}</td>
 		</tr>
         {% endfor %}
 	</tbody>
 </table>
 <br>
 <br>
-<button><a style="color:black;" href="/suppliers">Add New Record</a></button>
+<button><a style="color:black;" href="{% url 'add_supplier' %}">Add New Record</a></button>
 </body>
 </html>
