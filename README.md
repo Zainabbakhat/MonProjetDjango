@@ -33,22 +33,6 @@ python -m venv env
 pip install -r requirements.txt 
 ```
 
-#### Editing the settings.py file
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'data',
-        'USER': 'root',
-        'PASSWORD': '', # PASSWORD is the root password (is empty if your root doesn't have a password)
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
-}
-```
-#### :warning: Create a database named `data` using `MySQL Workbench`, `MySQL Command Line` or `phpMyAdmin` :warning:
-
 #### Create migrations
 
 ```cmd
