@@ -60,7 +60,7 @@ def SignupPage(request):
     if request.method=='POST':
         uname=request.POST.get('username')
         email=request.POST.get('email')
-        typeofprofile = request.POST.get('typeofprofile')  # Récupération du type de profil
+        typeofprofile = request.POST.get('typeofprofile')  
         pass1=request.POST.get('password1')
         pass2=request.POST.get('password2')
         if pass1!=pass2:

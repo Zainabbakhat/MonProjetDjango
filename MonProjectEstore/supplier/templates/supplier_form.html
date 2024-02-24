@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +7,58 @@
     <title>Document</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+
+    <!-- Stylesheet intégré -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h3 {
+            font-size: 24px; /* Agrandir la police pour le titre */
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        p {
+            text-align: left; /* Aligner le texte des paragraphes à gauche */
+            font-size: 16px; /* Taille de la police pour les étiquettes */
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,32 +66,27 @@
         {% csrf_token %}
         <div>
             <br>
-            <p>
-                <h3>Enter Details</h3>
-            </p>
+            <h3>Enter Details</h3>
             <div>
                 <p>Nom de supplier:</p>{{ form.nom_supplier }}
             </div>
+            <div>
+                <p>Catégorie d'article:</p>{{ form.categorie_article }}
+            </div>
+            <div>
+                <p>Article:</p>{{ form.article }}
+            </div>
+            <div>
+                <p>Quantité d'article:</p>{{ form.quantite_article }}
+            </div>
+            <div>
+                <p>Prix unitaire:</p>{{ form.prix_unitaire }}
+            </div>
+            <div>
+                <br>
+                <button type="submit">Submit</button>
+            </div>
         </div>
-        <div>
-            <p>Catégorie d'article:</p>{{ form.categorie_article }}
-        </div>
-        <div>
-            <p>Article:</p>{{ form.article }}
-        </div>
-        <div>
-            <p>Quantité d'article:</p>{{ form.quantite_article }}
-        </div>
-        <div>
-            <p>Prix unitaire:</p>{{ form.prix_unitaire }}
-        </div>
-        <div>
-            <br>
-            <button type="submit">Submit</button>
-        </div>
-    </div>
-</form>
+    </form>
 </body>
-
 </html>
-
