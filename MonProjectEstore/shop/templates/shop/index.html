@@ -1,0 +1,193 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .btn-recherche {
+            background-image: linear-gradient(to right, #714cef, #9d6afe);
+            color: white;
+          }
+          
+          .btn-recherche:hover {
+            background-image: linear-gradient(to right, #9d6afe, #714cef);
+          }
+    </style>
+    <style>
+     
+      .btn-marron {
+        background-color: #fc5185;
+        color: white;
+      }
+      
+      .btn-marron:hover {
+        background-color: #f287a7;
+      }
+
+      body {
+        background-color: #ffffff;
+      }
+      .initial-content {
+        display: none;
+      }
+
+      .products {
+        margin-top: 50px;
+      }
+
+      color: white;{
+      border-color: transparent;
+    }
+    .pagination .page-link {
+        color: grey ;
+        
+        border-color: transparent;
+      }
+    
+      .pagination .page-link:hover {
+        color: white;
+        border-color: transparent;
+      }
+    
+      .pagination .page-item.active .page-link {
+        background-image: linear-gradient(to right, #714cef, #9d6afe);
+      }
+    
+      .pagination .page-item.active .page-link:hover {
+        background-image: linear-gradient(to right, #9d6afe, #714cef);
+      }
+    
+      /* Style pour le texte "Précédent" et "Suivant" */
+      .pagination .prev-next-link {
+        color: #9d6afe; 
+      }
+  
+  
+    
+       
+        
+    </style>
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="card card-sm">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col">
+                        <input type="search" placeholder="Entrez le nom du produit que vous cherchez" name="item-name" class="form-control form-control-borderless">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-recherche">Recherche</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in product_object %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{ product.image }}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <div id="aa{{ product.id }}" class="card-title">{{ product.title }}</div>
+                    <div id="price{{ product.id }}" style="color:#f287a7" class="card-text"> {{ product.price }}</div>
+                    <a href="{% url 'shop:detail' product.id %}" class="btn btn-marron">Voir</a>
+                    <button id="{{ product.id }}" class="btn ted btn-recherche">Ajouter</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if product_object.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_object.previous_page_number }}">Precedent</a>
+                    </li>
+                {% endif %}    
+
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ product_object.number }}">{{ product_object.number }}</a>
+                    </li>
+
+                {% if product_object.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_object.next_page_number }}">Suivant</a>
+                    </li>
+                {% endif %} 
+
+            </ul>
+        </div>
+    </div>
+
+   
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    console.log('Juste pour tester ');
+    if(localStorage.getItem('panier') == null){
+    var panier = {};
+    }else{
+    panier = JSON.parse(localStorage.getItem('panier'));
+    }
+    $('.ted').on('click', function(){
+    console.log('ajouter');
+    var item_id = this.id.toString();
+    console.log(item_id);
+    if(panier[item_id] != undefined){
+    queantite = panier[item_id][0] +1 ;
+    panier[item_id][0] = queantite;
+    panier[item_id][2] += parseFloat(document.getElementById("price"+item_id).innerHTML);
+    }else{
+    queantite = 1;
+    prix = parseFloat(document.getElementById("price"+item_id).innerHTML);
+    nom = document.getElementById("aa"+item_id).innerHTML;
+    panier[item_id] = [queantite, nom, prix ];
+    }
+    console.log(panier);
+    localStorage.setItem('panier', JSON.stringify(panier));
+    document.getElementById("panier").innerHTML ="Panier("+ Object.keys(panier).length+")";
+    });
+    AfficherList(panier);
+    function AfficherList(panier){
+    var panierString = " ";
+    panierString += "<h5>Voici votre liste</h5>";
+    var index = 1;
+    for(var x in panier){
+    var element = document.getElementById("aa" + x);
+    if (element) {
+    panierString += index;
+    panierString += document.getElementById("aa"+x).innerHTML + " Qte: "+ panier[x][0] + "</br>";
+    index +=1;
+    }
+    }
+    panierString += "<a href='/checkout' class='btn btn-primary'>Checkout</a>";
+    $('[data-toggle="popover"]').popover();
+    document.getElementById('panier').setAttribute('data-content', panierString);
+    }
+   
+    window.onload = function() {
+    var phrase = document.querySelector('.animated');
+     phrase.classList.add('fadeIn');
+        }
+     
+    </script>
+</main>
+{% endblock %}
+
+
+    

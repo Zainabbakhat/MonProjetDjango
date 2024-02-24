@@ -1,0 +1,76 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<style>
+    .bg-warning {
+        background-color: #ffc107;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .text-dark {
+        color: #333;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .justify-content-center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mt-1 {
+        margin-top: 1rem;
+    }
+
+    #paypal-button-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+</style>
+
+   
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+<div class="row">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Merci pour votre commande {{ name }} !</h4>
+        <p>Nous sommes ravis de vous compter parmi nos clients. Pour finaliser votre achat en toute sécurité, veuillez procéder au paiement en cliquant sur le bouton ci-dessous. Nous sommes là pour vous aider à chaque étape du processus.</p>
+        <hr>
+        <p class="mb-0">Vous serez livré dans un délai de 1 jour.</p>
+      </div>
+
+</div>
+<div class="row justify-content-center mt-1"> 
+    <div class="col-md-6">
+        <div id="paypal-button-container"></div>
+    </div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYvkxnnNWGIP197LI76Yt01c2HKVwaaIwn3mTRBtqWLnMsNYMYUxRxJJVmA3F3CTPEoKxmz0yHpb-nIN"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '10.00' // Montant de la commande
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('La transaction est terminée par ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
+{% endblock %}
+
+
+

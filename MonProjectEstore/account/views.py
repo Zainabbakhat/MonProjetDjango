@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
+from shop.views import index ,detail, checkout, confirmation
+
 
 
 # Create your views here.
@@ -35,7 +37,7 @@ def LoginPage(request):
                 if typeofprofile == 'fournisseur':
                     return redirect('./fournisseur')  # Redirige vers la page d'accueil des fournisseurs
                 elif typeofprofile == 'client':
-                    return redirect('./client')  # Redirige vers la page d'accueil des acheteurs
+                     return render(request, 'shop/index.html')
                 # Ajoutez plus de conditions si nécessaire
                 else:
                     return redirect('home')  # Redirige vers une page d'accueil générale

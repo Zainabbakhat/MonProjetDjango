@@ -17,8 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from shop.views import index ,detail, checkout, confirmation
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls' , namespace='account')),
     path('supplier/', include('supplier.urls')),
+    path('', index, name='home'),  
+    path('shop/', include('shop.urls', namespace='shop')),
+    path('', index, name='home'),
+    path('<int:id>/', detail, name="detail"),
+    path('checkout/', checkout, name="checkout"),
+    path('confirmation/', confirmation, name="confirmation"),
+   
 ]
